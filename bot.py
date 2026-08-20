@@ -424,13 +424,22 @@ async def back_main_handler(callback: CallbackQuery):
     welcome_text = f"💥 <b>Добро пожаловать, {first_name}!</b>\n‹━━━━━━━━━━━━━━━━›\n\n🔥 Приватный архив 18+\n— эксклюзивный контент\n— доступ только для участников\n\n👇 <b>Выбери раздел</b> 👇"
     await callback.message.edit_text(welcome_text, reply_markup=get_main_keyboard(), parse_mode=ParseMode.HTML)
 
-# ==================== WEBHOOK SOZLAMASI ====================
+# ==================== WEBHOOK & SERVER SOZLAMALARI ====================
+async def health_check(request):
+    return web.Response(text="Bot runs successfully!")
+
 async def on_startup(bot: Bot):
-    await bot.set_webhook(WEBHOOK_URL)
+    try:
+        logging.info(f"Webhook o'rnatilmoqda: {WEBHOOK_URL}")
+        await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+    except Exception as e:
+        logging.error(f"Webhook o'rnatishda xatolik: {e}")
 
 def main():
     dp.startup.register(on_startup)
     app = web.Application()
+    
+    app.router.add_get("/", health_check)
     
     webhook_requests_handler = SimpleRequestHandler(
         dispatcher=dp,
@@ -439,7 +448,7 @@ def main():
     webhook_requests_handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
     
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 10000))
     web.run_app(app, host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
