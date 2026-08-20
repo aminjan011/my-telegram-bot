@@ -14,7 +14,7 @@ from aiogram.fsm.context import FSMContext
 logging.basicConfig(level=logging.INFO)
 
 # ==================== НАСТРОЙКИ ====================
-BOT_TOKEN = "8646029465:AAHDm5rvMgp53-Hnut5DTgy5fgFsTlyga5U"      # Tokeningiz
+BOT_TOKEN = "8646029465:AAFctetFkz80P9d4h6-l_ge8icUkx1RgC38"      # Tokeningiz
 PRIVATE_CHANNEL_ID = -1004324882879                    # Referal orqali kiriladigan yopiq kanal ID
 CHANNELS_SECTION_LINK = "https://t.me/+_AxorsmPVYE2M2Ji"    # "📁 Каналы" bo'limi uchun havola
 REQUIRED_REFERRALS = 10                               # Referal soni (10 ball)
